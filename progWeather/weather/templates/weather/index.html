@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>weather</title>
+    {% load static %}
+    <link href="{% static '/css/index.css' %}" rel="stylesheet" type="text/css">
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+</head>
+<body>
+<div class="bg-info">
+    <div class="p-4 mx-50 text-white">
+        <h3 id="h3p">What's the weather like?</h3>
+    </div>
+</div>
+<div>
+    <div>
+        <form method="post" class="form-inline justify-content-center mt-4">
+            {% csrf_token %}
+          <div class="form-group">
+              {{ form.name }}
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </div>
+        </form>
+    </div>
+    {% for city_weather in weather_data%}
+    <div class="card d-flex flex-row  mt-4" style="width: 18rem; margin-left: 40%;">
+        <div>
+            <img alt="..." class="card-img-top" src="https://openweathermap.org/img/w/{{ city_weather.icon }}.png">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ city_weather.city}}</h5>
+            <p>{{ city_weather.temperature }}°F</p>
+            <p class="card-text">{{ city_weather.description }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script crossorigin="anonymous" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script crossorigin="anonymous" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script crossorigin="anonymous" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
